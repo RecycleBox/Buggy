@@ -1,0 +1,10 @@
+# Object files
+*.o
+*.obj
+
+# Libraries
+*.a
+
+# Visual Studio files
+Debug
+Release
