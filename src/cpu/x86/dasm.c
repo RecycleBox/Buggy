@@ -3,7 +3,7 @@
 
 int WINAPI  BuggyDecode(
     LPBYTE lpInstruction,
-    LPINSTRUCTION_X86 lpInstruction
+    LPINSTRUCTION_X86 lpstInstruction,
     BYTE CPUMode
     )
 {
@@ -13,7 +13,7 @@ int WINAPI  BuggyDecode(
 
     // 1. Instruction Prefixes : Up to four prefixes of 1 byte each (optional)
     {
-        int count = 0;
+        BYTE count = 0;
         for (; count < 3; i++)
         {
             BYTE mask = 0x00;
@@ -40,7 +40,7 @@ int WINAPI  BuggyDecode(
     // 2. REX prefix : 1 byte (if required) (64-Bit only)
     if (CPUMode == CPU_X86_64BITS)
     {
-        int count = 0;
+        BYTE count = 0;
         for (; count < 1; i++)
         {
             if (REXTable[lpInstruction[i]])  //this byte is a defined REX prefix
@@ -63,7 +63,7 @@ int WINAPI  BuggyDecode(
     // 3. Opcode : 1 - , 2 - , or 3 - byte opcode
     {
         BYTE(*lpOpcodeTable)[256];
-        int count = 0;
+        BYTE count = 0;
         if (lpInstruction[i] != 0x0F)   //One-byte Opcode
         {
             lpOpcodeTable = &OpcodeTable[0];
